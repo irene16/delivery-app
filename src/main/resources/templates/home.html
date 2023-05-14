@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../static/css/style.css">
+
+  <title>Bansi</title>
+</head>
+
+<body>
+<div id="header">
+  <div id="info">
+    <p>г. Москва, Берзарина, д. 78</p>
+    <p>8 (800) 000-00-00</p>
+  </div>
+  <div id="logo">
+    <a th:href="@{/home}"><img src="/images/logo.png"></a>
+    Bansi
+  </div>
+  <div id="reg">
+    <a th:href="@{/order/all}">Заказы</a>
+    <a th:href="@{/logout}">Выход</a>
+  </div>
+</div>
+
+<div class="line"></div>
+
+<div id="select">
+  <div id="menu"><a th:href="@{/menu}">Меню</a></div>
+  <div id="cart"><a th:href="@{/cart}">Корзина</a></div>
+</div>
+
+<div class="slideshow-container">
+
+  <div class="mySlides fade">
+    <img src="/images/slideshow_first.jpg">
+  </div>
+  
+  <div class="mySlides fade">
+    <img src="/images/slideshow_second.jpg">
+  </div>
+  
+  <div class="mySlides fade">
+    <img src="/images/slideshow_third.jpg">
+  </div>
+  
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+  
+  </div>
+
+
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+    
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+    
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+    
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}    
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";  
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";  
+      dots[slideIndex-1].className += " active";
+    }
+    </script>
+</body>
+
+</html>

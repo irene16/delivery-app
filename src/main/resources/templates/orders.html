@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/style.css" rel="stylesheet"/>
+    <link href="../static/css/style.css" rel="stylesheet"/>
+
+    <title>Bansi</title>
+</head>
+
+<body>
+<div id="header">
+    <div id="info">
+        <p>г. Москва, Берзарина, д. 78</p>
+        <p>8 (800) 000-00-00</p>
+    </div>
+    <div id="logo">
+        <a th:href="@{/home}"><img src="/images/logo.png"></a>
+        Bansi
+    </div>
+    <div id="reg">
+        <a th:href="@{/order/all}">Заказы</a>
+        <a th:href="@{/logout}">Выход</a>
+    </div>
+</div>
+
+<div class="line"></div>
+
+<div id="select">
+    <div id="menu"><a th:href="@{/menu}">Меню</a></div>
+    <div id="cart"><a th:href="@{/cart}">Корзина</a></div>
+  </div>
+
+<div class="cart_cont">
+    <p th:if="${orders.size() == 0}">У вас нет заказов</p>
+
+    <div id="pos_cont" th:if="${orders.size() > 0}" th:each="order : ${orders}">
+        <p id="amnt" th:text="${order.getLocalDate()}"></p>
+        <div id="">
+            <div id="check">
+                <div id="check_info">Сумма заказа</div>
+                <div id="check_total_price" th:text="${order.getTotalPrice()}  + '₽'">450 ₽</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

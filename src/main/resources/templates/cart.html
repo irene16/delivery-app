@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/style.css" rel="stylesheet" />
+
+    <title>Bansi</title>
+</head>
+
+<body>
+    <div id="header">
+        <div id="info">
+            <p>г. Москва, Берзарина, д. 78</p>
+            <p>8 (800) 000-00-00</p>
+        </div>
+        <div id="logo">
+            <a th:href="@{/home}"><img src="/images/logo.png"></a>
+            Bansi
+        </div>
+        <div id="reg">
+            <a th:href="@{/order/all}">Заказы</a>
+            <a th:href="@{/logout}">Выход</a>
+        </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div id="select">
+        <div id="menu"><a th:href="@{/menu}">Меню</a></div>
+        <div id="cart"><a th:href="@{/cart}">Корзина</a></div>
+      </div>
+
+    <div class="cart_cont">
+        <p th:if="${cartItems.size() == 0}">Ваша корзина пуста</p>
+
+        <div id="pos_cont" th:if="${cartItems.size() > 0}" th:each="cartItem : ${cartItems}">
+            <div id="cart_product">
+                <div id="cart_product_image"><img th:src="${cartItem.getItem().getImgURL()}"></div>
+                <div id="cart_product_info">
+                    <div id="cart_product_name" th:text="${cartItem.getItem().getName()}">Краткое описание</div>
+                    <div id="cart_product_details" th:text="${cartItem.getItem().getDescription()}">Описание для раскрытия дополнительных деталей</div>
+                </div>
+                <div id="cart_product_line"></div>
+                <div id="cart_product_price" th:text="${cartItem.getItem().getPrice() + '₽'}">150 ₽</div>
+            </div>
+            <div id="amnt_cont">
+                <a th:href="@{'/item/plus/' + ${cartItem.getId()}}"><input type="button" value="+" id="cart_amnt_btn"></a>
+                <div id="amnt" th:text="${cartItem.getQuantity()}">1</div>
+                <a th:href="@{'/item/minus/' + ${cartItem.getId()}}"><input type="button" value="-" id="cart_amnt_btn"></a>
+            </div>
+            <div id="total_cont" th:text="${cartItem.getItem().getPrice() * cartItem.getQuantity()} + '₽'">
+                150 ₽
+            </div>
+        </div>
+
+
+        <div id="purchase_cont">
+            <div id="check">
+                <div id="check_info">Итого к оплате:</div>
+                <div id="check_total_price" th:text="${totalPrice + '₽'}">450 ₽</div>
+            </div>
+            <div class="purchase_btn">
+                <a th:href="@{/order/make}">Заказать</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

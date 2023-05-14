@@ -1,0 +1,39 @@
+version: '3.5'
+
+services:
+  webapp:
+    build: ./
+    container_name: webapp
+    networks:
+      - order-psql
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://psql:5432/postgres
+      - SPRING_DATASOURCE_USERNAME=user
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      - psql
+    restart: on-failure
+
+
+  psql:
+    container_name: postgres_delivery_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-1234}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - order-psql
+    restart: unless-stopped
+
+networks:
+  order-psql:
+
+volumes:
+  postgres:
